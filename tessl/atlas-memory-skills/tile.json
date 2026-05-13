@@ -1,0 +1,11 @@
+{
+  "name": "atlas-memory-skills",
+  "version": "0.1.0",
+  "description": "Tessl skills that teach Atlas how to ingest and query founder memory in Neo4j.",
+  "skills": [
+    "skills/founder-memory/SKILL.md",
+    "skills/investor-brief/SKILL.md",
+    "skills/risk-radar/SKILL.md",
+    "skills/product-roadmap/SKILL.md"
+  ]
+}
