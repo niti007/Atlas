@@ -347,8 +347,8 @@ function InsightColumn({ title, items }: { title: string; items: InsightItem[] }
             </h3>
             <p>{item.summary}</p>
             <ul className="evidence-list">
-              {item.evidence.slice(0, 2).map((evidence) => (
-                <li key={evidence}>{evidence}</li>
+              {item.evidence.slice(0, 2).map((evidence, evidenceIndex) => (
+                <li key={`${item.id}-evidence-${evidenceIndex}`}>{evidence}</li>
               ))}
             </ul>
           </article>
@@ -389,10 +389,10 @@ function Graph({ graph }: { graph: GraphPayload | null }) {
   return (
     <div className="graph-canvas">
       <svg className="graph-svg" viewBox={`0 0 ${layout.width} ${layout.height}`} role="img" aria-label="Atlas memory graph">
-        {layout.edges.map((edge) => {
+        {layout.edges.map((edge, edgeIndex) => {
           const source = layout.positions.get(edge.source)!;
           const target = layout.positions.get(edge.target)!;
-          return <line className="edge" key={edge.id} x1={source.x} y1={source.y} x2={target.x} y2={target.y} />;
+          return <line className="edge" key={`${edge.id}-${edgeIndex}`} x1={source.x} y1={source.y} x2={target.x} y2={target.y} />;
         })}
         {layout.nodes.map((node) => {
           const position = layout.positions.get(node.id)!;

@@ -85,11 +85,19 @@ export function storeDemoExtraction(text: string, extraction: ExtractionResult):
   current.graph = {
     mode: "demo",
     nodes: Array.from(nodes.values()).slice(-60),
-    edges: edges.slice(-120),
+    edges: dedupeEdges(edges).slice(-120),
   };
   current.insights = buildInsights(current.graph, extraction);
 
   return { sourceId, entityCount: extraction.entities.length, relationshipCount: extraction.relationships.length };
+}
+
+function dedupeEdges(edges: GraphPayload["edges"]): GraphPayload["edges"] {
+  const byKey = new Map<string, GraphPayload["edges"][number]>();
+  for (const edge of edges) {
+    byKey.set(`${edge.source}:${edge.type}:${edge.target}:${edge.evidence || ""}`, edge);
+  }
+  return Array.from(byKey.values());
 }
 
 export function getDemoEvidence(): QueryEvidence[] {
